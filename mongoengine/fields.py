@@ -260,6 +260,10 @@ class DateTimeField(BaseField):
       need accurate microsecond support.
     """
 
+    def __init__(self, auto_now=None, auto_now_add=None, **kwargs):
+        self.auto_now, self.auto_now_add = auto_now, auto_now_add
+        super(DateTimeField, self).__init__(**kwargs)
+
     def validate(self, value):
         if not isinstance(value, (datetime.datetime, datetime.date)):
             self.error(u'cannot parse date "%s"' % value)
